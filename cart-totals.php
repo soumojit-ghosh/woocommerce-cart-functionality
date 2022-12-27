@@ -118,12 +118,17 @@ defined( 'ABSPATH' ) || exit;
 		// 	$product_id = $cart_item['product_id'];
 		// 	break;
 		// }
-
+        
+        $total_iteam =  WC()->cart->get_cart_contents_count();
+        // echo $total_iteam;
 		$products_ids_array = array();
 
 		foreach( WC()->cart->get_cart() as $cart_item ){
     	$products_ids_array[] = $cart_item['product_id'];
+    	$js_product_id =array($cart_item);
 		}
+		
+// 		echo $js_product_id[0];
 
 		// echo $products_ids_array[0];
 
@@ -142,7 +147,7 @@ defined( 'ABSPATH' ) || exit;
 			.hide_checkout{
 				background-color: #e00d7b;
 				border-radius: 8px;
-				/height: 64px;/
+				/*height: 64px;*/
 				padding: 2px;
 				width: auto;
 			}
@@ -210,7 +215,7 @@ defined( 'ABSPATH' ) || exit;
     .popup{
     background-color: #ffffff;
     background-image: url("https://babymelon.in/wp-content/uploads/2022/12/get-glowing-skin11.png");
-    /width: 450px;/
+    /*width: 450px;*/
     padding: 30px 40px;
     position: absolute;
     transform: translate(-50%,-50%);
@@ -235,9 +240,17 @@ defined( 'ABSPATH' ) || exit;
     }
 
     </style>
+
+ 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> 
+
+    <script type="text/javascript">
+
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
+        
+        	// code Embded ----> 
+
+
 
 
     $(document).ready(function(){
@@ -246,16 +259,49 @@ defined( 'ABSPATH' ) || exit;
     	$("#close").click(function(){
     		$("#hpopup").hide()
     	})
+
     	function showModal(){
-    		// get value from localStorage
-    		var is_modal_show = sessionStorage.getItem('alreadyShow');
-    		if(is_modal_show != 'alredy shown'){
+    	    
+    	    
+    	    	var total_cart_iteam = "<?php echo $total_iteam ?>";
+         // console.log(total_cart_iteam);  ---->> Total Cart Iteam  ## total_cart_iteam
+        
+          var users=[total_cart_iteam];
+
+         for(let i = 0 ; i<total_cart_iteam; i++){
+            users=<?php echo json_encode($products_ids_array); ?>;
+          } 
+        
+			
+			// get value from localStorage
+			var con =0;
+			for(let i =0; i<total_cart_iteam; i++){
+				if(users[i] == 3343){
+					con = 3343;
+				}
+			}
+
+			var is_modal_show = sessionStorage.getItem(con);
+    		if(is_modal_show != 3343){
     			$("#hpopup").show()
-    			sessionStorage.setItem('alreadyShow','alredy shown');
+    				var total_cart_iteam = "<?php echo $total_iteam ?>";
+    			for(let i = 0 ; i<total_cart_iteam; i++){
+                 users=<?php echo json_encode($products_ids_array); ?>;
+                } 
+                
+                for(let i =0; i<total_cart_iteam; i++){
+    				if(users[i] == 3343){
+    					sessionStorage.setItem(con, 3343);
+    				}
+			    }
+    // 			sessionStorage.setItem('alreadyShow', 'alredy shown');
     		}else{
     			console.log(is_modal_show);
     		}
     	}
     })
 
+       
+        
     </script>
+    
